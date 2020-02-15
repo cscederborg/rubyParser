@@ -1,6 +1,17 @@
+#Ruby Parser for the Grammar given in the ReadMe
+#Does not utilize a Parse Tree, but instead
+#Loads test files using File.read and pushes tokens
+#onto a helper array, which is compared to a syntaxArr
+#to check for syntactical errors
+
+#Name of the file and a Flag determining whether
+#My Prolog or Scheme followup project is used
 txtFile = ARGV[0]
 processFlag = ARGV[1]
 
+#Class to be used throughout the parser
+#All objects will have a type, such as :NUM
+#and a lexeme, the actual
 class Token
 
   def initialize(type, lexeme)
@@ -256,6 +267,9 @@ while(inputTxt.size > 0)
 
 end
 
+  
+#Syntax array that holds the Structure of the Grammar
+#Hard coded for three lines
 numArr = Array.new
 iterator = 0
 syntaxArr = [:ID,:EQUAL,:POINT,:LPAREN,:NUM,:COMMA,:NUM,:RPAREN,:SEMICOLON,
@@ -269,6 +283,8 @@ tokenArr.each do |myTok|
   end
 end
 
+#If any of the tokens are not in the same order
+#as the syntaxArr, a syntax error has occurred
 syntaxArr.each do |token|
   if token != tokenArr[iterator].type
     abort "Syntax Error!"
